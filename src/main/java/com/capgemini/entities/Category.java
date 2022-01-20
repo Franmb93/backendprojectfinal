@@ -31,7 +31,7 @@ public class Category implements Serializable {
 	private String name;
 	private String image;
 
-	@OneToMany(mappedBy = "catergory")
+	@OneToMany(mappedBy = "category")
 	private List<Product> products;
 	
 }
