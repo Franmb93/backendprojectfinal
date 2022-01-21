@@ -4,10 +4,12 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class Order implements Serializable {
+public class Deal implements Serializable {
 
 	/**
 	 * 
@@ -32,15 +34,15 @@ public class Order implements Serializable {
 	
 	private String shipping_address;
 	
-	private double valoration;
+	private long valoration;
 	private int n_valorations;
 	
 	private LocalDateTime ordered_date;
 	
-	@ManyToOne
+	@OneToOne
 	private Product product;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	private User user;
 	
 }

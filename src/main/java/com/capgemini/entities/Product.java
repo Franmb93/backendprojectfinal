@@ -4,10 +4,12 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -38,10 +40,13 @@ public class Product implements Serializable {
 	
 	private LocalDateTime published_date;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	private User user;
 	
 	@ManyToOne
 	private Category category;
+	
+	@OneToOne
+	private Deal deal;
 	
 }

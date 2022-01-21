@@ -2,38 +2,40 @@ package com.capgemini.controllers;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.capgemini.entities.Order;
-import com.capgemini.services.IOrderService;
+import com.capgemini.entities.Deal;
+import com.capgemini.services.IDealService;
 
 @RestController
-@RequestMapping(value = "/api/orders")
-public class OrderController {
+@RequestMapping(value = "/api/deals")
+public class DealController {
 
-	private IOrderService service;
+	@Autowired
+	private IDealService service;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public List<Order> getOrders(){
+	public List<Deal> getDeals(){
 		return service.getAll();
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public Order getOrder(@PathVariable("id") String id){
+	public Deal getDeal(@PathVariable("id") String id){
 		return service.getById(id);
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public Order saveOrder(@RequestBody Order order){
-		return service.update(order);
+	public Deal saveDeal(@RequestBody Deal deal){
+		return service.update(deal);
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public void deleteOrder(@PathVariable("id") String id){
+	public void deleteDeal(@PathVariable("id") String id){
 		service.delete(id);
 	}
 	

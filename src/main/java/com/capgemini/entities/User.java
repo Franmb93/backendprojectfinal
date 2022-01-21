@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,7 +33,7 @@ public class User implements Serializable {
 	private String password;
 	
 	private String first_name;
-	private String last_word;
+	private String last_name;
 	
 	private String email;
 	private String phone;
@@ -45,10 +46,10 @@ public class User implements Serializable {
 	private long valoraton;
 	private int n_valorations;
 	
-	@OneToMany(mappedBy = "user")
-	private List<Order> orders;
+	@OneToMany(targetEntity = Deal.class, mappedBy = "user", fetch = FetchType.LAZY)
+	private List<Deal> deals;
 	
-	@OneToMany(mappedBy = "user")
+	@OneToMany(targetEntity = Product.class, mappedBy = "user", fetch = FetchType.LAZY)
 	private List<Product> products;
 	
 }
