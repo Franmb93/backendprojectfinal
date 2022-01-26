@@ -17,25 +17,21 @@ public class UserServiceImpl implements IUserService {
 	
 	@Override
 	public List<User> getAll() {
-		// TODO Auto-generated method stub
 		return userDao.findAll();
 	}
 
 	@Override
 	public User getById(String id) {
-		// TODO Auto-generated method stub
-		return userDao.getById(Long.parseLong(id));
+		return userDao.findById(Long.parseLong(id)).get();
 	}
 
 	@Override
 	public User update(User user) {
-		// TODO Auto-generated method stub
 		return userDao.save(user);
 	}
 
 	@Override
 	public void delete(String id) {
-		// TODO Auto-generated method stub
 		userDao.deleteById(Long.parseLong(id));
 	}
 

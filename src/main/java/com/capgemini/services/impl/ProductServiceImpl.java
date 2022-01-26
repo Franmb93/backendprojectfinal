@@ -17,25 +17,21 @@ public class ProductServiceImpl implements IProductService {
 	
 	@Override
 	public List<Product> getAll() {
-		// TODO Auto-generated method stub
 		return productDao.findAll();
 	}
 
 	@Override
 	public Product getById(String id) {
-		// TODO Auto-generated method stub
-		return productDao.getById(Long.parseLong(id));
+		return productDao.findById(Long.parseLong(id)).get();
 	}
 
 	@Override
 	public Product update(Product product) {
-		// TODO Auto-generated method stub
 		return productDao.save(product);
 	}
 
 	@Override
 	public void delete(String id) {
-		// TODO Auto-generated method stub
 		productDao.deleteById(Long.parseLong(id));
 	}
 

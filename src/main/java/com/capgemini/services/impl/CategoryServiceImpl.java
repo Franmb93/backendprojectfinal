@@ -17,25 +17,21 @@ public class CategoryServiceImpl implements ICategoryService {
 	
 	@Override
 	public List<Category> getAll() {
-		// TODO Auto-generated method stub
 		return categoryDao.findAll();
 	}
 
 	@Override
 	public Category getById(String id) {
-		// TODO Auto-generated method stub
-		return categoryDao.getById(Long.parseLong(id));
+		return categoryDao.findById(Long.parseLong(id)).get();
 	}
 
 	@Override
 	public Category update(Category category) {
-		// TODO Auto-generated method stub
 		return categoryDao.save(category);
 	}
 
 	@Override
 	public void delete(String id) {
-		// TODO Auto-generated method stub
 		categoryDao.deleteById(Long.parseLong(id));
 	}
 

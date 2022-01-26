@@ -9,7 +9,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,11 +35,16 @@ public class Deal implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
+	@Min(value = 1, message = "Price must be higher than 1")
 	private double price;
 	
+	@NotNull
+	@Size(max = 255, message = "max. address is 255 characters")
 	private String shipping_address;
 	
+	@Min(value = 0, message = "Valorations cannot be under 0")
+	@Max(value = 5, message = "Valorations cannot be higher than 5")
 	private long valoration;
 	private int n_valorations;
 	

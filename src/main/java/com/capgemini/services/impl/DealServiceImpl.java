@@ -18,25 +18,21 @@ public class DealServiceImpl implements IDealService {
 	
 	@Override
 	public List<Deal> getAll() {
-		// TODO Auto-generated method stub
 		return dealDao.findAll();
 	}
 
 	@Override
 	public Deal getById(String id) {
-		// TODO Auto-generated method stub
-		return dealDao.getById(Long.parseLong(id));
+		return dealDao.findById(Long.parseLong(id)).get();
 	}
 
 	@Override
 	public Deal update(Deal deal) {
-		// TODO Auto-generated method stub
 		return dealDao.save(deal);
 	}
 
 	@Override
 	public void delete(String id) {
-		// TODO Auto-generated method stub
 		dealDao.deleteById(Long.parseLong(id));
 	}
 
