@@ -15,6 +15,9 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -82,9 +85,11 @@ public class User implements Serializable {
 	private int n_valorations;
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	@JsonManagedReference
 	private List<Deal> deals;
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	@JsonManagedReference
 	private List<Product> products;
 
 }

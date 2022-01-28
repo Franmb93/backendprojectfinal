@@ -12,6 +12,9 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -38,6 +41,7 @@ public class Category implements Serializable {
 	private String image;
 
 	@OneToMany(mappedBy = "category")
+	@JsonManagedReference
 	private List<Product> products;
 	
 }

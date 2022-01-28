@@ -18,6 +18,9 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -58,13 +61,16 @@ public class Product implements Serializable {
 	private LocalDateTime published_date;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonBackReference
 	private User user;
 	
 	@ManyToOne
 	@NotNull
+	@JsonBackReference
 	private Category category;
 	
 	@OneToOne(optional = true, mappedBy="product")
+	@JsonManagedReference
 	private Deal deal;
 	
 }
