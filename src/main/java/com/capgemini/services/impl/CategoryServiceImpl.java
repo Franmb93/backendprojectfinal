@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capgemini.entities.Category;
+import com.capgemini.exceptions.CategoryNotFoundException;
 import com.capgemini.repository.ICategoryDao;
 import com.capgemini.services.ICategoryService;
 
@@ -22,7 +23,7 @@ public class CategoryServiceImpl implements ICategoryService {
 
 	@Override
 	public Category findById(long id) {
-		return categoryDao.findById(id).get();
+		return categoryDao.findById(id).orElseThrow(() -> new CategoryNotFoundException(id));
 	}
 
 	@Override
