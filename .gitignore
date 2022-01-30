@@ -20,7 +20,7 @@ target/
 *.ipr
 
 ### Aplication properties ###
-*.properties
+/bin/src/main/resources/application.properties
 
 ### NetBeans ###
 /nbproject/private/
@@ -37,3 +37,4 @@ build/
 
 /application.properties
 
+pom.xml
