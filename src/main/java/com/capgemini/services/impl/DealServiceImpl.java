@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 
 import com.capgemini.entities.Deal;
+import com.capgemini.exceptions.DealNotFoundException;
 import com.capgemini.repository.IDealDao;
 import com.capgemini.services.IDealService;
 
@@ -23,7 +24,7 @@ public class DealServiceImpl implements IDealService {
 
 	@Override
 	public Deal findById(long id) {
-		return dealDao.findById(id).get();
+		return dealDao.findById(id).orElseThrow(() -> new DealNotFoundException(id));
 	}
 
 	@Override

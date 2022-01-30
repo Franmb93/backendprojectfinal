@@ -62,6 +62,7 @@ public class UserController {
 
 	@PutMapping("/{id}")
 	public User updateUser(@RequestBody User newUser, @PathVariable long id){
+		//TODO fixupdates
 		User oldUser = service.findById(id);
 
 		if(oldUser != null){

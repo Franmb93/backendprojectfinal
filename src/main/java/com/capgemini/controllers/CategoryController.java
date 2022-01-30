@@ -25,7 +25,6 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 @RequestMapping("/api/categories")
 public class CategoryController {
 
-	@Autowired
 	private ICategoryService service;
 
 	private final CategoryModelAssembler assembler;
@@ -51,13 +50,14 @@ public class CategoryController {
 
 	@PutMapping("/{id}")
 	public Category updateCategory(@RequestBody Category newCategory) {
+		//TODO fix updates
 		Category oldCategory = service.findById(newCategory.getId());
 
 		if(oldCategory != null){
 			newCategory.setId(oldCategory.getId());
 		}
 
-		return newCategory;
+		return service.update(newCategory);
 	}
 
 	@DeleteMapping
