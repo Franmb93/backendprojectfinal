@@ -21,12 +21,12 @@ public class CategoryController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public List<Category> getCategories(){
-		return service.getAll();
+		return service.findAll();
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public Category getCategory(@PathVariable("id") String id){
-		return service.getById(id);
+	public Category getCategory(@PathVariable("id") long id){
+		return service.findById(id);
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
@@ -35,7 +35,7 @@ public class CategoryController {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public void deleteCategory(@PathVariable("id") String id){
+	public void deleteCategory(@PathVariable("id") long id){
 		service.delete(id);
 	}
 	

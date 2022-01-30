@@ -6,9 +6,9 @@ import com.capgemini.entities.User;
 
 public interface IUserService {
 
-	public List<User> getAll();
-	public User getById(String id);
+	public List<User> findAll();
+	public User findById(long id);
 	public User update(User user);
-	public void delete(String id);
+	public void delete(long id);
 	
 }

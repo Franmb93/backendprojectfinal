@@ -17,13 +17,13 @@ public class DealServiceImpl implements IDealService {
 	private IDealDao dealDao;
 	
 	@Override
-	public List<Deal> getAll() {
+	public List<Deal> findAll() {
 		return dealDao.findAll();
 	}
 
 	@Override
-	public Deal getById(String id) {
-		return dealDao.findById(Long.parseLong(id)).get();
+	public Deal findById(long id) {
+		return dealDao.findById(id).get();
 	}
 
 	@Override
@@ -32,8 +32,8 @@ public class DealServiceImpl implements IDealService {
 	}
 
 	@Override
-	public void delete(String id) {
-		dealDao.deleteById(Long.parseLong(id));
+	public void delete(long id) {
+		dealDao.deleteById(id);
 	}
 
 	

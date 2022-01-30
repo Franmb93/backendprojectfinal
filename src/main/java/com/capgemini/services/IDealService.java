@@ -6,9 +6,9 @@ import com.capgemini.entities.Deal;
 
 public interface IDealService {
 
-	public List<Deal> getAll();
-	public Deal getById(String id);
+	public List<Deal> findAll();
+	public Deal findById(long id);
 	public Deal update(Deal deal);
-	public void delete(String id);
+	public void delete(long id);
 	
 }

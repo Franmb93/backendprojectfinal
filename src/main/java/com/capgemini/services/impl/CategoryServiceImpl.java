@@ -16,13 +16,13 @@ public class CategoryServiceImpl implements ICategoryService {
 	private ICategoryDao categoryDao;
 	
 	@Override
-	public List<Category> getAll() {
+	public List<Category> findAll() {
 		return categoryDao.findAll();
 	}
 
 	@Override
-	public Category getById(String id) {
-		return categoryDao.findById(Long.parseLong(id)).get();
+	public Category findById(long id) {
+		return categoryDao.findById(id).get();
 	}
 
 	@Override
@@ -31,8 +31,8 @@ public class CategoryServiceImpl implements ICategoryService {
 	}
 
 	@Override
-	public void delete(String id) {
-		categoryDao.deleteById(Long.parseLong(id));
+	public void delete(long id) {
+		categoryDao.deleteById(id);
 	}
 
 }

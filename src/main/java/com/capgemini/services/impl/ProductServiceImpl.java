@@ -16,13 +16,13 @@ public class ProductServiceImpl implements IProductService {
 	private IProductDao productDao;
 	
 	@Override
-	public List<Product> getAll() {
+	public List<Product> findAll() {
 		return productDao.findAll();
 	}
 
 	@Override
-	public Product getById(String id) {
-		return productDao.findById(Long.parseLong(id)).get();
+	public Product findById(long id) {
+		return productDao.findById(id).get();
 	}
 
 	@Override
@@ -31,8 +31,8 @@ public class ProductServiceImpl implements IProductService {
 	}
 
 	@Override
-	public void delete(String id) {
-		productDao.deleteById(Long.parseLong(id));
+	public void delete(long id) {
+		productDao.deleteById(id);
 	}
 
 }

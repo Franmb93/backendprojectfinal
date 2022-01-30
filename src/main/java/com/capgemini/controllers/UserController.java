@@ -21,12 +21,12 @@ public class UserController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public List<User> getUsers(){
-		return service.getAll();
+		return service.findAll();
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public User getUser(@PathVariable("id") String id){
-		return service.getById(id);
+	public User getUser(@PathVariable("id") long id){
+		return service.findById(id);
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
@@ -35,7 +35,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public void deleteUser(@PathVariable("id") String id){
+	public void deleteUser(@PathVariable("id") long id){
 		service.delete(id);
 	}
 	

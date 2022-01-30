@@ -6,9 +6,9 @@ import com.capgemini.entities.Category;
 
 public interface ICategoryService {
 
-	public List<Category> getAll();
-	public Category getById(String id);
+	public List<Category> findAll();
+	public Category findById(long id);
 	public Category update(Category category);
-	public void delete(String id);
+	public void delete(long id);
 	
 }

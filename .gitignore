@@ -38,3 +38,4 @@ build/
 /application.properties
 
 pom.xml
+bin/src/main/resources/application.properties

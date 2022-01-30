@@ -16,13 +16,13 @@ public class UserServiceImpl implements IUserService {
 	private IUserDao userDao;
 	
 	@Override
-	public List<User> getAll() {
+	public List<User> findAll() {
 		return userDao.findAll();
 	}
 
 	@Override
-	public User getById(String id) {
-		return userDao.findById(Long.parseLong(id)).get();
+	public User findById(long id) {
+		return userDao.findById(id).get();
 	}
 
 	@Override
@@ -31,8 +31,8 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public void delete(String id) {
-		userDao.deleteById(Long.parseLong(id));
+	public void delete(long id) {
+		userDao.deleteById(id);
 	}
 
 }

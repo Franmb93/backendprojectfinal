@@ -21,12 +21,12 @@ public class DealController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public List<Deal> getDeals(){
-		return service.getAll();
+		return service.findAll();
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public Deal getDeal(@PathVariable("id") String id){
-		return service.getById(id);
+	public Deal getDeal(@PathVariable("id") long id){
+		return service.findById(id);
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
@@ -35,7 +35,7 @@ public class DealController {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public void deleteDeal(@PathVariable("id") String id){
+	public void deleteDeal(@PathVariable("id") long id){
 		service.delete(id);
 	}
 	
