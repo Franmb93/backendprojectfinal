@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.capgemini.assemblers.ProductModelAssembler;
 import com.capgemini.entities.Product;
 import com.capgemini.exceptions.ProductNotFoundException;
 import com.capgemini.services.IProductService;
@@ -22,8 +23,16 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 @RestController
 public class ProductController {
 
-	@Autowired
+
 	private IProductService serviceProduct;
+
+	private final ProductModelAssembler assembler;
+
+	ProductController(IProductService serviceProduct, ProductModelAssembler assembler){
+		this.serviceProduct = serviceProduct;
+		this.assembler = assembler;
+	}
+
 
 	@GetMapping("/api/products")
 	public CollectionModel<EntityModel<Product>> getProducts() {
@@ -38,18 +47,10 @@ public class ProductController {
 
 	@GetMapping("/api/products/{id}")
 	public EntityModel<Product> getProduct(@PathVariable("id") long id) {
-		Product product = null;
-		try {
-			product = serviceProduct.findById(id);
-		} catch (ProductNotFoundException e) {
-			e.printStackTrace();
-		}
+		
+		Product product = serviceProduct.findById(id);
 
-		return EntityModel.of(product, 
-				linkTo(methodOn(ProductController.class).getProduct(id)).withSelfRel(),
-				linkTo(methodOn(ProductController.class).getProducts()).withRel("products"));
-				
-				
+		return assembler.toModel(product);			
 	}
 
 	@PostMapping("/products")

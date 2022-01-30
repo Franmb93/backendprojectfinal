@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capgemini.entities.Product;
+import com.capgemini.exceptions.ProductNotFoundException;
 import com.capgemini.repository.IProductDao;
 import com.capgemini.services.IProductService;
 
@@ -22,7 +23,7 @@ public class ProductServiceImpl implements IProductService {
 
 	@Override
 	public Product findById(long id) {
-		return productDao.findById(id).get();
+		return productDao.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
 	}
 
 	@Override

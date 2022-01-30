@@ -1,7 +1,7 @@
 package com.capgemini.exceptions;
 
 public class UserNotFoundException extends RuntimeException {
-	UserNotFoundException(long id) {
+	public UserNotFoundException(long id) {
 		super("Could not find user " + id);
 	}
 
