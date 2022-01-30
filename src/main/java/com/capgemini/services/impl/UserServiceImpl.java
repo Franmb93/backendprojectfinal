@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capgemini.entities.User;
+import com.capgemini.exceptions.UserNotFoundException;
 import com.capgemini.repository.IUserDao;
 import com.capgemini.services.IUserService;
 
@@ -22,7 +23,7 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public User findById(long id) {
-		return userDao.findById(id).get();
+		return userDao.findById(id).orElseThrow(() -> new UserNotFoundException(id));
 	}
 
 	@Override
