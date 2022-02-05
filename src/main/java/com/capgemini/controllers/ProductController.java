@@ -3,8 +3,11 @@ package com.capgemini.controllers;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.IanaLinkRelations;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,19 +45,23 @@ public class ProductController {
 	}
 
 	@GetMapping("/{id}")
-	public EntityModel<Product> getProduct(@PathVariable("id") long id) {
+	public EntityModel<Product> getProduct(@PathVariable long id) {
 
 		Product product = serviceProduct.findById(id);
 
 		return assembler.toModel(product);
 	}
 
-	@PostMapping
-	public Product newProduct(@RequestBody Product product) {
-		return serviceProduct.update(product);
+	@PostMapping(consumes={"application/json"})
+	public ResponseEntity<?> newProduct(@RequestBody Product product) {
+		EntityModel<Product> entityModel = assembler.toModel(serviceProduct.update(product));
+
+		return ResponseEntity
+				.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+				.body(entityModel);
 	}
 
-	@PutMapping("/{id}")
+	@PutMapping(value = "/{id}", consumes={"application/json"})
 	public Product updateProduct(@RequestBody Product newProduct, @PathVariable long id) {
 		Product oldProduct = serviceProduct.findById(id);
 
