@@ -1,9 +1,13 @@
 package com.capgemini.controllers;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.catalina.connector.Response;
+
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
@@ -17,7 +21,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.capgemini.assemblers.UserModelAssembler;
 import com.capgemini.entities.User;
@@ -56,9 +62,13 @@ public class UserController {
 	}
 
 	@PostMapping
-	public ResponseEntity<?> saveUser(@RequestBody User user) {
-		EntityModel<User> entityModel = assembler.toModel(service.save(user));
+	public ResponseEntity<?> saveUser(@RequestBody User user, @RequestParam(name = "file") MultipartFile imagen) throws IOException {
 
+		Path rutaCompleta = Paths.get("//home//curso//Users//Resources//" + imagen.getOriginalFilename()); //TODO fixear rutacompleta para corresponderse con el pc actual.
+		Files.write(rutaCompleta, imagen.getBytes());
+		user.setImage(imagen.getOriginalFilename());
+
+		EntityModel<User> entityModel = assembler.toModel(service.save(user));
 		return ResponseEntity
 				.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
 				.body(entityModel);

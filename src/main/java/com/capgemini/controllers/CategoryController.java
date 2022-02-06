@@ -3,9 +3,7 @@ package com.capgemini.controllers;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.persistence.Entity;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;

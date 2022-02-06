@@ -15,6 +15,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.capgemini.entities.validations.dates.ValidDates;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.AllArgsConstructor;
@@ -25,6 +26,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
+@ValidDates //TODO ¡no se ha comprobado si funciona!
 public class Deal implements Serializable {
 
 	/**
@@ -48,6 +50,7 @@ public class Deal implements Serializable {
 	private long valoration;
 	private int n_valorations;
 	
+
 	private LocalDateTime ordered_date;
 	
 	@OneToOne

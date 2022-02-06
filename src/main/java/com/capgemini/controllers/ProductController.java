@@ -1,11 +1,13 @@
 package com.capgemini.controllers;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.persistence.Entity;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
@@ -19,7 +21,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.capgemini.assemblers.ProductModelAssembler;
 import com.capgemini.entities.Product;
@@ -58,7 +62,12 @@ public class ProductController {
 	}
 
 	@PostMapping(consumes={"application/json"}, produces = {"application/json"})
-	public ResponseEntity<?> newProduct(@RequestBody Product product) {
+	public ResponseEntity<?> newProduct(@RequestBody Product product, @RequestParam(name = "file") MultipartFile imagen) throws IOException {
+		
+		Path rutaCompleta = Paths.get("//home//curso//Products//Resources//" + imagen.getOriginalFilename()); //TODO fixear rutacompleta para corresponderse con el pc actual. 
+		Files.write(rutaCompleta, imagen.getBytes());
+		product.setImage(imagen.getOriginalFilename());
+		
 		EntityModel<Product> entityModel = assembler.toModel(serviceProduct.save(product));
 
 		return ResponseEntity

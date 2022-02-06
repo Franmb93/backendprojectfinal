@@ -68,7 +68,6 @@ public class DealController {
 
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateDeal(@RequestBody Deal newDeal, @PathVariable long id){
-		//TODO fix updates
 		Deal oldDeal = service.findById(id);
 		newDeal.setId(oldDeal.getId());
 		EntityModel<Deal> entityModel = assembler.toModel(newDeal);
