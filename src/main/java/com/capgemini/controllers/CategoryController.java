@@ -3,8 +3,14 @@ package com.capgemini.controllers;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.Entity;
+
+import org.apache.catalina.connector.Response;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.IanaLinkRelations;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.assemblers.CategoryModelAssembler;
@@ -22,6 +29,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 @RestController
 @RequestMapping("/api/categories")
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class CategoryController {
 
 	private ICategoryService service;
@@ -48,25 +56,31 @@ public class CategoryController {
 	}
 
 	@PutMapping("/{id}")
-	public Category updateCategory(@RequestBody Category newCategory) {
-		//TODO fix updates
+	public ResponseEntity<?> updateCategory(@RequestBody Category newCategory) {
+
 		Category oldCategory = service.findById(newCategory.getId());
+		newCategory.setId(oldCategory.getId());
+		EntityModel<Category> entityModel = assembler.toModel(service.save(newCategory));
 
-		if(oldCategory != null){
-			newCategory.setId(oldCategory.getId());
-		}
-
-		return service.update(newCategory);
+		return ResponseEntity
+			.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+			.body(entityModel);
 	}
 
 	@DeleteMapping
-	public void deleteCategory(@PathVariable("id") long id) {
+	public ResponseEntity<?> deleteCategory(@PathVariable("id") long id) {
 		service.delete(id);
+
+		return ResponseEntity.noContent().build();
 	}
 
 	@PostMapping("/{id}")
-	public Category saveCategory(@RequestBody Category category){
-		return service.update(category);
+	public ResponseEntity<?> saveCategory(@RequestBody Category category){
+		EntityModel<Category> entityModel = assembler.toModel(service.save(category));
+
+		return ResponseEntity
+				.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+				.body(entityModel);
 	}
 
 }

@@ -5,6 +5,9 @@ import java.util.stream.Collectors;
 
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.IanaLinkRelations;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.assemblers.DealModelAssembler;
@@ -22,6 +26,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 @RestController
 @RequestMapping("/api/deals")
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class DealController {
 
 	private IDealService service;
@@ -51,24 +56,26 @@ public class DealController {
 
 	@PostMapping
 	public Deal saveDeal(@RequestBody Deal deal) {
-		return service.update(deal);
+		return service.save(deal);
 	}
 
 	@DeleteMapping("/{id}")
-	public void deleteDeal(@PathVariable("id") long id) {
+	public ResponseEntity<?> deleteDeal(@PathVariable("id") long id) {
 		service.delete(id);
+
+		return ResponseEntity.noContent().build();
 	}
 
 	@PutMapping("/{id}")
-	public Deal updateDeal(@RequestBody Deal newDeal, @PathVariable long id){
+	public ResponseEntity<?> updateDeal(@RequestBody Deal newDeal, @PathVariable long id){
 		//TODO fix updates
 		Deal oldDeal = service.findById(id);
+		newDeal.setId(oldDeal.getId());
+		EntityModel<Deal> entityModel = assembler.toModel(newDeal);
 
-		if(oldDeal != null){
-			newDeal.setId(oldDeal.getId());
-		}
-
-		return service.update(newDeal);
+		return ResponseEntity
+		.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+		.body(entityModel);
 	}
 
 }

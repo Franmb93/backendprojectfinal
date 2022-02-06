@@ -28,7 +28,7 @@ public class DealServiceImpl implements IDealService {
 	}
 
 	@Override
-	public Deal update(Deal deal) {
+	public Deal save(Deal deal) {
 		return dealDao.save(deal);
 	}
 

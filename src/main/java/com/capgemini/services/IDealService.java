@@ -8,7 +8,7 @@ public interface IDealService {
 
 	public List<Deal> findAll();
 	public Deal findById(long id);
-	public Deal update(Deal deal);
+	public Deal save(Deal deal);
 	public void delete(long id);
 	
 }

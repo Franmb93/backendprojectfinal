@@ -8,7 +8,7 @@ public interface ICategoryService {
 
 	public List<Category> findAll();
 	public Category findById(long id);
-	public Category update(Category category);
+	public Category save(Category category);
 	public void delete(long id);
 	
 }

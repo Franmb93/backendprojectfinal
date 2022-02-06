@@ -3,12 +3,14 @@ package com.capgemini.controllers;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.Entity;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.http.ResponseEntity;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.assemblers.ProductModelAssembler;
@@ -26,7 +28,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 @RestController
 @RequestMapping("/api/products")
-// @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class ProductController {
 
 	private IProductService serviceProduct;
@@ -57,7 +59,7 @@ public class ProductController {
 
 	@PostMapping(consumes={"application/json"}, produces = {"application/json"})
 	public ResponseEntity<?> newProduct(@RequestBody Product product) {
-		EntityModel<Product> entityModel = assembler.toModel(serviceProduct.update(product));
+		EntityModel<Product> entityModel = assembler.toModel(serviceProduct.save(product));
 
 		return ResponseEntity
 				.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
@@ -65,25 +67,32 @@ public class ProductController {
 	}
 
 	@PutMapping(value = "/{id}", consumes={"application/json"})
-	public Product updateProduct(@RequestBody Product newProduct, @PathVariable long id) {
+	public ResponseEntity<?> updateProduct(@RequestBody Product newProduct, @PathVariable long id) {
 		Product oldProduct = serviceProduct.findById(id);
-
+		EntityModel<Product> entityModel = null;
 		if (oldProduct != null) {
 			oldProduct.setCategory(newProduct.getCategory());
 			oldProduct.setDescription(newProduct.getDescription());
 			oldProduct.setName(newProduct.getName());
 			oldProduct.setWeight(newProduct.getWeight());
 			oldProduct.setPrice(newProduct.getPrice());
-			return serviceProduct.update(oldProduct);
+
+			entityModel = assembler.toModel(serviceProduct.save(oldProduct));
 		} else {
 			newProduct.setId(oldProduct.getId());
-			return serviceProduct.update(newProduct);
+			entityModel = assembler.toModel(serviceProduct.save(newProduct));
 		}
+
+		return ResponseEntity
+			.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+			.body(entityModel);
 	}
 
 	@DeleteMapping("/{id}")
-	public void deleteProduct(@PathVariable("id") long id) {
+	public ResponseEntity<?> deleteProduct(@PathVariable("id") long id) {
 		serviceProduct.delete(id);
+
+		return ResponseEntity.noContent().build();
 	}
 
 }

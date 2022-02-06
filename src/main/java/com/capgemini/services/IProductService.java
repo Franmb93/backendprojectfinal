@@ -8,7 +8,7 @@ public interface IProductService {
 
 	public List<Product> findAll();
 	public Product findById(long id);
-	public Product update(Product product);
+	public Product save(Product product);
 	public void delete(long id);
 	
 }

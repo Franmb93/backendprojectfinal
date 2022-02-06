@@ -8,7 +8,6 @@ public interface IUserService {
 
 	public List<User> findAll();
 	public User findById(long id);
-	public User update(User user);
+	public User save(User user);
 	public void delete(long id);
-	
 }

@@ -27,7 +27,7 @@ public class CategoryServiceImpl implements ICategoryService {
 	}
 
 	@Override
-	public Category update(Category category) {
+	public Category save(Category category) {
 		return categoryDao.save(category);
 	}
 
