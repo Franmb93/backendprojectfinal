@@ -17,6 +17,8 @@ import javax.validation.constraints.Size;
 
 import com.capgemini.entities.validations.dates.ValidDates;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,6 +29,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @ValidDates //TODO ¡no se ha comprobado si funciona!
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Deal implements Serializable {
 
 	/**
@@ -54,11 +57,9 @@ public class Deal implements Serializable {
 	private LocalDateTime ordered_date;
 	
 	@OneToOne
-	@JsonBackReference
 	private Product product;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JsonBackReference
 	private User user;
 	
 }

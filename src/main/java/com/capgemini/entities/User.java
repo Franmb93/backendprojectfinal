@@ -15,7 +15,9 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,6 +27,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class User implements Serializable {
 
 	/**
@@ -84,11 +87,10 @@ public class User implements Serializable {
 	private int n_valorations;
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-	@JsonManagedReference
 	private List<Deal> deals;
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-	@JsonManagedReference
+
 	private List<Product> products;
 
 }

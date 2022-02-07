@@ -18,7 +18,9 @@ import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,6 +30,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Product implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -62,11 +65,9 @@ public class Product implements Serializable {
 	
 	@ManyToOne
 	@NotNull
-	@JsonBackReference
 	private Category category;
 	
 	@OneToOne(optional = true, mappedBy="product")
-	@JsonManagedReference
 	private Deal deal;
 	
 }

@@ -72,7 +72,7 @@ public class CategoryController {
 		return ResponseEntity.noContent().build();
 	}
 
-	@PostMapping("/{id}")
+	@PostMapping
 	public ResponseEntity<?> saveCategory(@RequestBody Category category){
 		EntityModel<Category> entityModel = assembler.toModel(service.save(category));
 
