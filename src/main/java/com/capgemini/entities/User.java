@@ -78,7 +78,7 @@ public class User implements Serializable {
 	
 	@NotNull
 	@Min(value = 0, message = "Value of the wallet cannot be less than 0")
-	private String wallet;
+	private double wallet;
 
 	@Min(value = 0, message = "Valorations cannot be under 0")
 	@Max(value = 5, message = "Valorations cannot be higher than 5")

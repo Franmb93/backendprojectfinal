@@ -40,7 +40,6 @@ public class Category implements Serializable {
 	@NotEmpty(message = "name cannot be empty")
 	@Size(min = 4, max = 16, message = "name must have a length of 4-16 characters")
 	private String name;
-	private String image;
 
 	@OneToMany(mappedBy = "category")
 	private List<Product> products;
