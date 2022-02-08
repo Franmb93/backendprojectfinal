@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.capgemini.entities.User;
 import com.capgemini.exceptions.UserNotFoundException;
 import com.capgemini.repository.IUserDao;
+import com.capgemini.security.PasswordCoder;
 import com.capgemini.services.IUserService;
 
 @Service
@@ -28,7 +29,11 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public User save(User user) {
-		// user.setPassword(PasswordCoder.encode(user.getPassword()));
+		if(user.getId() == null){
+			user.setPassword(PasswordCoder.encode(user.getPassword()));
+		}
+
+		
 		return userDao.save(user);
 	}
 

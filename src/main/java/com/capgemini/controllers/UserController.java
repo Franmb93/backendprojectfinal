@@ -62,11 +62,11 @@ public class UserController {
 	}
 
 	@PostMapping
-	public ResponseEntity<?> saveUser(@RequestBody User user, @RequestParam(name = "file") MultipartFile imagen) throws IOException {
+	public ResponseEntity<?> saveUser(@RequestBody User user) throws IOException {
 
-		Path rutaCompleta = Paths.get("//home//curso//Users//Resources//" + imagen.getOriginalFilename()); //TODO fixear rutacompleta para corresponderse con el pc actual.
-		Files.write(rutaCompleta, imagen.getBytes());
-		user.setImage(imagen.getOriginalFilename());
+		// Path rutaCompleta = Paths.get("//home//curso//Users//Resources//" + imagen.getOriginalFilename()); //TODO fixear rutacompleta para corresponderse con el pc actual.
+		// Files.write(rutaCompleta, imagen.getBytes());
+		// user.setImage(imagen.getOriginalFilename());
 
 		EntityModel<User> entityModel = assembler.toModel(service.save(user));
 		return ResponseEntity
