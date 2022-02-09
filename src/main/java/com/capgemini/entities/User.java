@@ -89,7 +89,6 @@ public class User implements Serializable {
 	private List<Deal> deals;
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-
 	private List<Product> products;
 
 }
