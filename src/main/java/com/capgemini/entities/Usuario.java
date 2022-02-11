@@ -20,7 +20,6 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties.Admin;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -36,9 +35,6 @@ import lombok.RequiredArgsConstructor;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope=Usuario.class)
 public class Usuario implements Serializable, UserDetails {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -50,7 +46,7 @@ public class Usuario implements Serializable, UserDetails {
 	@Size(min = 4, max = 16, message = "Username must have a length of 4-16 characters")
 	private String username;
 
-	@Size(min = 8, message = "Password must have more than 8 characters")
+	@Size(min = 6, message = "Password must have more than 6 characters")
 	@NotNull
 	@NotEmpty(message = "Password cannot be empty")
 	private String password;
