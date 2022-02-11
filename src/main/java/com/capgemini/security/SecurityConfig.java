@@ -25,38 +25,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
-	@Bean
-	public DaoAuthenticationProvider authenticationProvider() {
-		DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
-		auth.setUserDetailsService(userService);
-		auth.setPasswordEncoder(passwordEncoder());
-		return auth;
-	}
-	
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.authenticationProvider(authenticationProvider());
-	}
-	
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		        
-        http.csrf().disable();
-        
-        http.authorizeRequests().antMatchers(
-				"**").permitAll()
-		.anyRequest().authenticated()
-		.and()
-		.formLogin()
-		.permitAll()
-		.and()
-		.logout()
-		.invalidateHttpSession(true)
-		.clearAuthentication(true)
-		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-		.logoutSuccessUrl("/login?logout")
-		.permitAll().and();
-	}
+
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth)
+      throws Exception {
+        auth
+          .inMemoryAuthentication()
+          .withUser("user")
+          .password("password")
+          .roles("USER");
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) 
+      throws Exception {
+        http.csrf().disable()
+          .authorizeRequests()
+          .antMatchers("/login").permitAll()
+          .anyRequest()
+          .authenticated()
+          .and()
+          .httpBasic();
+    }
 
 }
