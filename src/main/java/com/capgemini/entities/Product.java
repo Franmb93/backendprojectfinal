@@ -57,7 +57,7 @@ public class Product implements Serializable {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JsonBackReference
-	private User user;
+	private Usuario user;
 	
 	@ManyToOne
 	@NotNull

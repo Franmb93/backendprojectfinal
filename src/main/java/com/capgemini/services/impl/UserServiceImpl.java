@@ -1,14 +1,16 @@
 package com.capgemini.services.impl;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.capgemini.entities.User;
+import com.capgemini.entities.Usuario;
 import com.capgemini.exceptions.UserNotFoundException;
 import com.capgemini.repository.IUserDao;
-import com.capgemini.security.PasswordCoder;
 import com.capgemini.services.IUserService;
 
 @Service
@@ -18,22 +20,17 @@ public class UserServiceImpl implements IUserService {
 	private IUserDao userDao;
 	
 	@Override
-	public List<User> findAll() {
+	public List<Usuario> findAll() {
 		return userDao.findAll();
 	}
 
 	@Override
-	public User findById(long id) {
+	public Usuario findById(long id) {
 		return userDao.findById(id).orElseThrow(() -> new UserNotFoundException(id));
 	}
 
 	@Override
-	public User save(User user) {
-		if(user.getId() == null){
-			user.setPassword(PasswordCoder.encode(user.getPassword()));
-		}
-
-		
+	public Usuario save(Usuario user) {
 		return userDao.save(user);
 	}
 
@@ -42,4 +39,14 @@ public class UserServiceImpl implements IUserService {
 		userDao.deleteById(id);
 	}
 
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		Usuario usuario = userDao.findByUsername(username);
+		if (usuario == null){
+			throw new UsernameNotFoundException("Wrong username");
+		}
+
+		return usuario;
+	}
 }

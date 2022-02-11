@@ -27,7 +27,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
-@ValidDates //TODO ¡no se ha comprobado si funciona!
+@ValidDates 
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Deal implements Serializable {
 
@@ -59,6 +59,6 @@ public class Deal implements Serializable {
 	private Product product;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	private User user;
+	private Usuario user;
 	
 }

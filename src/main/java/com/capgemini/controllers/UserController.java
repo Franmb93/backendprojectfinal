@@ -7,7 +7,6 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
@@ -26,14 +25,18 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.capgemini.assemblers.UserModelAssembler;
-import com.capgemini.entities.User;
+import com.capgemini.entities.Usuario;
 import com.capgemini.services.IUserService;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 @RestController
 @RequestMapping("/api/users")
-@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
+@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
+		RequestMethod.DELETE })
+
 public class UserController {
 
 	private IUserService service;
@@ -46,8 +49,8 @@ public class UserController {
 	}
 
 	@GetMapping
-	public CollectionModel<EntityModel<User>> getUsers() {
-		List<EntityModel<User>> users = service.findAll().stream() //
+	public CollectionModel<EntityModel<Usuario>> getUsers() {
+		List<EntityModel<Usuario>> users = service.findAll().stream() //
 				.map(assembler::toModel) //
 				.collect(Collectors.toList());
 
@@ -55,20 +58,22 @@ public class UserController {
 	}
 
 	@GetMapping("/{id}")
-	public EntityModel<User> getUser(@PathVariable("id") long id) {
-		User user = service.findById(id);
+	public EntityModel<Usuario> getUser(@PathVariable("id") long id) {
+		Usuario user = service.findById(id);
 
 		return assembler.toModel(user);
 	}
 
 	@PostMapping
-	public ResponseEntity<?> saveUser(@RequestBody User user) throws IOException {
+	public ResponseEntity<?> saveUser(@RequestBody Usuario user) throws IOException {
 
-		// Path rutaCompleta = Paths.get("//home//curso//Users//Resources//" + imagen.getOriginalFilename()); //TODO fixear rutacompleta para corresponderse con el pc actual.
+		// Path rutaCompleta = Paths.get("//home//curso//Users//Resources//" +
+		// imagen.getOriginalFilename()); //TODO fixear rutacompleta para corresponderse
+		// con el pc actual.
 		// Files.write(rutaCompleta, imagen.getBytes());
 		// user.setImage(imagen.getOriginalFilename());
 
-		EntityModel<User> entityModel = assembler.toModel(service.save(user));
+		EntityModel<Usuario> entityModel = assembler.toModel(service.save(user));
 		return ResponseEntity
 				.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
 				.body(entityModel);
@@ -82,15 +87,15 @@ public class UserController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<?> updateUser(@RequestBody User newUser, @PathVariable long id){
-		User oldUser = service.findById(id);
+	public ResponseEntity<?> updateUser(@RequestBody Usuario newUser, @PathVariable long id) {
+		Usuario oldUser = service.findById(id);
 
 		newUser.setId(oldUser.getId());
-		EntityModel<User> entityModel = assembler.toModel(service.save(newUser));
+		EntityModel<Usuario> entityModel = assembler.toModel(service.save(newUser));
 
 		return ResponseEntity
-			.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
-			.body(entityModel);
+				.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+				.body(entityModel);
 	}
 
 }
