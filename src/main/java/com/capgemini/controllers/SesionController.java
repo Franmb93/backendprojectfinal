@@ -57,8 +57,8 @@ public class SesionController {
         //TODO borrar la sesione n un tiempo
     }
 
-    @DeleteMapping
-    public void deleteSesion(@RequestBody Sesion sesion){
-        serviceSesion.delete(sesion.getId());
+    @DeleteMapping("/{id}")
+    public void deleteSesion(@PathVariable long id){
+        serviceSesion.delete(id);
     }
 }
