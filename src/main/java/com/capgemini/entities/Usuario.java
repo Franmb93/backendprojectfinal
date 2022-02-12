@@ -85,7 +85,7 @@ public class Usuario implements Serializable, UserDetails {
 
 	@Min(value = 0, message = "Valorations cannot be under 0")
 	@Max(value = 5, message = "Valorations cannot be higher than 5")
-	private long valoraton;
+	private long valoration;
 	
 	private int n_valorations;
 
