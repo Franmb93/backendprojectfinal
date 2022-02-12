@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.capgemini.entities.Sesion;
 import com.capgemini.entities.Usuario;
+import com.capgemini.security.PasswordEncrypter;
 import com.capgemini.services.ISesionService;
 import com.capgemini.services.IUserService;
 
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
@@ -45,16 +45,20 @@ public class SesionController {
     public Sesion newSesion(@RequestBody Sesion sesion){
         Usuario user = serviceUser.findByUsername(sesion.getUsername());
 
+        // sesion.setPassword(PasswordEncrypter.encode(sesion.getPassword()));
+
         if(user.getUsername().equals(sesion.getUsername()) 
             && user.getPassword().equals(sesion.getPassword())){
             return serviceSesion.save(sesion);
         } else{
-            throw new Error("Password or username not matching");
+           throw new Error("Name or password wrong");
         }
+
+        //TODO borrar la sesione n un tiempo
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteSesion(@PathVariable long id){
-        serviceSesion.delete(id);
+    @DeleteMapping
+    public void deleteSesion(@RequestBody Sesion sesion){
+        serviceSesion.delete(sesion.getId());
     }
 }

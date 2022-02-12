@@ -71,7 +71,7 @@ public class UserController {
 		// user.setImage(imagen.getOriginalFilename());
 
 
-		user.setPassword(PasswordEncrypter.encode(user.getPassword()));
+		// user.setPassword(PasswordEncrypter.encode(user.getPassword()));
 		
 		EntityModel<Usuario> entityModel = assembler.toModel(service.save(user));
 		return ResponseEntity
