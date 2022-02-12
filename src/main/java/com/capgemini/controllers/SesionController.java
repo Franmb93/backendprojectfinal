@@ -53,8 +53,6 @@ public class SesionController {
         } else{
            throw new Error("Name or password wrong");
         }
-
-        //TODO borrar la sesione n un tiempo
     }
 
     @DeleteMapping("/{id}")
