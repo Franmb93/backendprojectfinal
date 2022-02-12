@@ -13,4 +13,5 @@ public interface IUserService extends UserDetailsService{
 	public Usuario findById(long id);
 	public Usuario save(Usuario user);
 	public void delete(long id);
+	public Usuario findByUsername(String username);
 }
