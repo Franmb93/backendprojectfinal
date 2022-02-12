@@ -1,6 +1,5 @@
 package com.capgemini.services.impl;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,5 +47,10 @@ public class UserServiceImpl implements IUserService {
 		}
 
 		return usuario;
+	}
+
+	@Override
+	public Usuario findByUsername(String username) {
+		return userDao.findByUsername(username);
 	}
 }

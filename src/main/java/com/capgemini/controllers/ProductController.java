@@ -64,7 +64,7 @@ public class ProductController {
 	@PostMapping(consumes={"application/json"}, produces = {"application/json"})
 	public ResponseEntity<?> newProduct(@RequestBody Product product, @RequestParam(name = "file") MultipartFile imagen) throws IOException {
 		
-		Path rutaCompleta = Paths.get("//home//curso//Products//Resources//" + imagen.getOriginalFilename()); //TODO fixear rutacompleta para corresponderse con el pc actual. 
+		Path rutaCompleta = Paths.get("//home//curso//projectfinal//Resources//" + imagen.getOriginalFilename());
 		Files.write(rutaCompleta, imagen.getBytes());
 		product.setImage(imagen.getOriginalFilename());
 		
