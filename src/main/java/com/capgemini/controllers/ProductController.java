@@ -104,4 +104,14 @@ public class ProductController {
 		return ResponseEntity.noContent().build();
 	}
 
+	@GetMapping("/user/{id}")
+	public List<Product> findByUserId(@PathVariable long id){
+		return serviceProduct.findByUserId(id);
+	}
+
+	@GetMapping("/category/{id}")
+	public List<Product> findByCategoryId(@PathVariable long id){
+		return serviceProduct.findByCategoryId(id);
+	}
+
 }

@@ -58,6 +58,5 @@ public class Deal implements Serializable {
 	private Product product;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	private Usuario user;
-	
+	private Usuario user;	
 }
