@@ -12,6 +12,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -41,6 +42,7 @@ public class Category implements Serializable {
 	private String name;
 
 	@OneToMany(mappedBy = "category")
+	@JsonBackReference
 	private List<Product> products;
 	
 }

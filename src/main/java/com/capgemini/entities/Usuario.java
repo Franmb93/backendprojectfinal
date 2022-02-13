@@ -17,6 +17,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -34,7 +35,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope=Usuario.class)
-public class Usuario implements Serializable, UserDetails {
+public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -91,37 +92,12 @@ public class Usuario implements Serializable, UserDetails {
 	private int n_valorations;
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	@JsonBackReference
 	private List<Deal> deals;
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	@JsonBackReference
 	private List<Product> products;
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-	    List<GrantedAuthority> roles = new ArrayList<>();
-        roles.add(new SimpleGrantedAuthority("ROLE_USER"));
-        return roles;	
-	
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return true; 
-	}
 
 }
