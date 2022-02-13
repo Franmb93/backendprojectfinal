@@ -62,11 +62,11 @@ public class ProductController {
 	}
 
 	@PostMapping(consumes={"application/json"}, produces = {"application/json"})
-	public ResponseEntity<?> newProduct(@RequestBody Product product, @RequestParam(name = "file") MultipartFile imagen) throws IOException {
+	public ResponseEntity<?> newProduct(@RequestBody Product product) throws IOException {
 		
-		Path rutaCompleta = Paths.get("//home//curso//Products//Resources//" + imagen.getOriginalFilename()); //TODO fixear rutacompleta para corresponderse con el pc actual. 
-		Files.write(rutaCompleta, imagen.getBytes());
-		product.setImage(imagen.getOriginalFilename());
+		// Path rutaCompleta = Paths.get("//home//curso//Products//Resources//" + imagen.getOriginalFilename()); //TODO fixear rutacompleta para corresponderse con el pc actual. 
+		// Files.write(rutaCompleta, imagen.getBytes());
+		// product.setImage(imagen.getOriginalFilename());
 		
 		EntityModel<Product> entityModel = assembler.toModel(serviceProduct.save(product));
 

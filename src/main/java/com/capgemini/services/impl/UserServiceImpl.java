@@ -38,4 +38,9 @@ public class UserServiceImpl implements IUserService {
 		userDao.deleteById(id);
 	}
 
+	@Override
+	public Usuario findByUsername(String username) {
+		return userDao.findByUsername(username);
+	}
+
 }
