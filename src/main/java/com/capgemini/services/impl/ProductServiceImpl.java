@@ -36,4 +36,13 @@ public class ProductServiceImpl implements IProductService {
 		productDao.deleteById(id);
 	}
 
+	@Override
+	public List<Product> findByUserId(long id) {
+		return productDao.findByUserId(id);
+	}
+
+	@Override
+	public List<Product> findByCategoryId(long id) {
+		return productDao.findByCategoryId(id);
+	}
 }

@@ -10,4 +10,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 @Repository
 public interface ISesionDao extends JpaRepository<Sesion, Long> {
     public Sesion findByUsername(String username);
+
 }
+

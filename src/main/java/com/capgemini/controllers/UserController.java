@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.capgemini.assemblers.UserModelAssembler;
 import com.capgemini.entities.Usuario;
+import com.capgemini.security.PasswordEncrypter;
 import com.capgemini.services.IUserService;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
@@ -69,6 +70,9 @@ public class UserController {
 		// Files.write(rutaCompleta, imagen.getBytes());
 		// user.setImage(imagen.getOriginalFilename());
 
+
+		// user.setPassword(PasswordEncrypter.encode(user.getPassword()));
+		
 		EntityModel<Usuario> entityModel = assembler.toModel(service.save(user));
 		return ResponseEntity
 				.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
