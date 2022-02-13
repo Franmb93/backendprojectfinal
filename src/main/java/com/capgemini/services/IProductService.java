@@ -10,5 +10,7 @@ public interface IProductService {
 	public Product findById(long id);
 	public Product save(Product product);
 	public void delete(long id);
+	public List<Product> findByUserId(long id);
+	public List<Product> findByCategoryId(long id);
 	
 }
