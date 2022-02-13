@@ -38,14 +38,4 @@ public class UserServiceImpl implements IUserService {
 		userDao.deleteById(id);
 	}
 
-
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Usuario usuario = userDao.findByUsername(username);
-		if (usuario == null){
-			throw new UsernameNotFoundException("Wrong username");
-		}
-
-		return usuario;
-	}
 }
