@@ -64,7 +64,7 @@ public class ProductController {
 	@PostMapping(consumes={"application/json"}, produces = {"application/json"})
 	public ResponseEntity<?> newProduct(@RequestBody Product product) throws IOException {
 		
-		// Path rutaCompleta = Paths.get("//home//curso//Products//Resources//" + imagen.getOriginalFilename()); //TODO fixear rutacompleta para corresponderse con el pc actual. 
+		// Path rutaCompleta = Paths.get("//home//curso//projectfinal//Resources//" + imagen.getOriginalFilename());
 		// Files.write(rutaCompleta, imagen.getBytes());
 		// product.setImage(imagen.getOriginalFilename());
 		
@@ -102,6 +102,16 @@ public class ProductController {
 		serviceProduct.delete(id);
 
 		return ResponseEntity.noContent().build();
+	}
+
+	@GetMapping("/user/{id}")
+	public List<Product> findByUserId(@PathVariable long id){
+		return serviceProduct.findByUserId(id);
+	}
+
+	@GetMapping("/category/{id}")
+	public List<Product> findByCategoryId(@PathVariable long id){
+		return serviceProduct.findByCategoryId(id);
 	}
 
 }
