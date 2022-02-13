@@ -6,7 +6,9 @@ import com.capgemini.entities.Usuario;
 
 
 
-public interface IUserService{
+
+public interface IUserService {
+
 
 	public List<Usuario> findAll();
 	public Usuario findById(long id);
