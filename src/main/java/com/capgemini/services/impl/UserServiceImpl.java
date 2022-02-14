@@ -43,4 +43,10 @@ public class UserServiceImpl implements IUserService {
 		return userDao.findByUsername(username);
 	}
 
+	@Override
+	public Usuario findByProductId(long idProduct) {
+		return userDao.findByProductId(idProduct);
+	}
+
+	
 }

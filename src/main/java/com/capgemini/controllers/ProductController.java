@@ -64,9 +64,6 @@ public class ProductController {
 	@PostMapping(consumes={"application/json"}, produces = {"application/json"})
 	public ResponseEntity<?> newProduct(@RequestBody Product product) throws IOException {
 		
-		// Path rutaCompleta = Paths.get("//home//curso//projectfinal//Resources//" + imagen.getOriginalFilename());
-		// Files.write(rutaCompleta, imagen.getBytes());
-		// product.setImage(imagen.getOriginalFilename());
 		
 		EntityModel<Product> entityModel = assembler.toModel(serviceProduct.save(product));
 
