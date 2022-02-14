@@ -34,7 +34,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope=Usuario.class)
-public class Usuario implements Serializable, UserDetails {
+public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -96,32 +96,5 @@ public class Usuario implements Serializable, UserDetails {
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private List<Product> products;
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-	    List<GrantedAuthority> roles = new ArrayList<>();
-        roles.add(new SimpleGrantedAuthority("ROLE_USER"));
-        return roles;	
-	
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return true; 
-	}
 
 }
