@@ -12,10 +12,6 @@ public class ImagesConfigurer implements WebMvcConfigurer{
     public void addResourceHandlers(ResourceHandlerRegistry registry){
         WebMvcConfigurer.super.addResourceHandlers(registry);
 
-<<<<<<< HEAD
         registry.addResourceHandler("/resources/**").addResourceLocations("file:" + "/home/curso/projectfinal/resources"); 
-=======
-        registry.addResourceHandler("/resources/**").addResourceLocations("file:" + "C://Resources"); //TODO falta añadir la ruta en la que trabajaremos a través de un método dinámico
->>>>>>> 6474913708615fe1e9aca2c67e8bfcc8f0369eef
     }
 }
