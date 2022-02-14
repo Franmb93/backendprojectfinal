@@ -43,16 +43,16 @@ public class Deal implements Serializable {
 	@Min(value = 1, message = "Price must be higher than 1")
 	private double price;
 	
-	@NotNull
-	@Size(max = 255, message = "max. address is 255 characters")
-	private String shipping_address;
+	// @NotNull
+	// @Size(max = 255, message = "max. address is 255 characters")
+	// private String shipping_address;
 	
-	@Min(value = 0, message = "Valorations cannot be under 0")
-	@Max(value = 5, message = "Valorations cannot be higher than 5")
-	private long valoration;
+	// @Min(value = 0, message = "Valorations cannot be under 0")
+	// @Max(value = 5, message = "Valorations cannot be higher than 5")
+	// private long valoration;
 	
 
-	private LocalDateTime ordered_date;
+	// private LocalDateTime ordered_date;
 	
 	@OneToOne
 	private Product product;
