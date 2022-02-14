@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.capgemini.entities.Sesion;
 import com.capgemini.entities.Usuario;
+import com.capgemini.security.PasswordEncrypter;
 import com.capgemini.services.ISesionService;
 import com.capgemini.services.IUserService;
 
@@ -49,6 +50,7 @@ public class SesionController {
 
         if(user.getUsername().equals(sesion.getUsername()) 
             && user.getPassword().equals(sesion.getPassword())){
+            sesion.setUser_id(user.getId());
             return serviceSesion.save(sesion);
         } else{
            throw new Error("Name or password wrong");
