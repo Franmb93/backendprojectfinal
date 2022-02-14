@@ -50,7 +50,6 @@ public class Deal implements Serializable {
 	@Min(value = 0, message = "Valorations cannot be under 0")
 	@Max(value = 5, message = "Valorations cannot be higher than 5")
 	private long valoration;
-	private int n_valorations;
 	
 
 	private LocalDateTime ordered_date;

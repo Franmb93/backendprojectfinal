@@ -17,36 +17,13 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
 	
-	@Autowired
-	private IUserService userService;
-	
-	@Bean
-	public BCryptPasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		        
+        http.csrf().disable();
+
 	}
-
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth)
-      throws Exception {
-        auth
-          .inMemoryAuthentication()
-          .withUser("user")
-          .password("password")
-          .roles("USER");
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) 
-      throws Exception {
-        http.csrf().disable()
-          .authorizeRequests()
-          .antMatchers("/login").permitAll()
-          .anyRequest()
-          .authenticated()
-          .and()
-          .httpBasic();
-    }
 
 }
