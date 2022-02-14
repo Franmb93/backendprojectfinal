@@ -51,9 +51,8 @@ public class Product implements Serializable {
 	private double weight;
 
 	private String image;
-	
-	@DateTimeFormat(pattern="dd-MM-yyyy")
-	private LocalDateTime published_date;
+
+	private String published_date;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JsonBackReference
