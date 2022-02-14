@@ -48,6 +48,7 @@ public class SesionController {
 
         if(user.getUsername().equals(sesion.getUsername()) 
             && user.getPassword().equals(sesion.getPassword())){
+            sesion.setUser_id(user.getId());
             return serviceSesion.save(sesion);
         } else{
            throw new Error("Name or password wrong");
