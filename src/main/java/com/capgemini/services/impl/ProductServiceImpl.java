@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capgemini.entities.Product;
+import com.capgemini.entities.Usuario;
 import com.capgemini.exceptions.ProductNotFoundException;
 import com.capgemini.repository.IProductDao;
 import com.capgemini.services.IProductService;
@@ -44,4 +45,6 @@ public class ProductServiceImpl implements IProductService {
 	public List<Product> findByCategoryId(long id) {
 		return productDao.findByCategoryId(id);
 	}
+
+
 }

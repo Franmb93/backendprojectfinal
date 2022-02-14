@@ -3,6 +3,7 @@ package com.capgemini.services;
 import java.util.List;
 
 import com.capgemini.entities.Product;
+import com.capgemini.entities.Usuario;
 
 public interface IProductService {
 
@@ -12,4 +13,5 @@ public interface IProductService {
 	public void delete(long id);
 	public List<Product> findByUserId(long id);
 	public List<Product> findByCategoryId(long id);
+
 }

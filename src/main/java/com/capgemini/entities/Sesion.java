@@ -34,4 +34,7 @@ public class Sesion implements Serializable{
     @NotNull
     private String password;
 
+    @NotNull
+    private Long user_id;
+
 }

@@ -44,6 +44,7 @@ public class SesionController {
     public Sesion newSesion(@RequestBody Sesion sesion){
         Usuario user = serviceUser.findByUsername(sesion.getUsername());
 
+        sesion.setUser_id(user.getId());
         // sesion.setPassword(PasswordEncrypter.encode(sesion.getPassword()));
 
         if(user.getUsername().equals(sesion.getUsername()) 
@@ -53,6 +54,7 @@ public class SesionController {
            throw new Error("Name or password wrong");
         }
     }
+
 
     @DeleteMapping("/{id}")
     public void deleteSesion(@PathVariable long id){

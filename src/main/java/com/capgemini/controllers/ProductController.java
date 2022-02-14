@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.capgemini.assemblers.ProductModelAssembler;
 import com.capgemini.entities.Product;
+import com.capgemini.entities.Usuario;
 import com.capgemini.services.IProductService;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
@@ -113,5 +114,6 @@ public class ProductController {
 	public List<Product> findByCategoryId(@PathVariable long id){
 		return serviceProduct.findByCategoryId(id);
 	}
+
 
 }

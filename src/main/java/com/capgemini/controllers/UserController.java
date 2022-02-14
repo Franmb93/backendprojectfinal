@@ -94,4 +94,10 @@ public class UserController {
 				.body(entityModel);
 	}
 
+	
+	@GetMapping("/productuser/{id}")
+	public Usuario findUserByProductId(@PathVariable long id){
+		return service.findUserByProductId(id);
+	}
+
 }
