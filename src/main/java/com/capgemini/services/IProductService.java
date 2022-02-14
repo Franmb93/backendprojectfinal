@@ -13,5 +13,6 @@ public interface IProductService {
 	public void delete(long id);
 	public List<Product> findByUserId(long id);
 	public List<Product> findByCategoryId(long id);
+    public List<Product> findBySearch(String search);
 
 }

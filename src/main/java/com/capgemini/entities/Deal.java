@@ -16,7 +16,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.capgemini.entities.validations.dates.ValidDates;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.AllArgsConstructor;
@@ -27,8 +29,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
-@ValidDates 
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+// @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Deal implements Serializable {
 
 	/**
@@ -43,21 +44,12 @@ public class Deal implements Serializable {
 	@Min(value = 1, message = "Price must be higher than 1")
 	private double price;
 	
-	// @NotNull
-	// @Size(max = 255, message = "max. address is 255 characters")
-	// private String shipping_address;
-	
-	// @Min(value = 0, message = "Valorations cannot be under 0")
-	// @Max(value = 5, message = "Valorations cannot be higher than 5")
-	// private long valoration;
-	
-
-	// private LocalDateTime ordered_date;
-	
+	//TODO No trae product estaría bien hacer una consulta
 	@OneToOne
+	@JsonBackReference
 	private Product product;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	private Usuario user;
 	
 }

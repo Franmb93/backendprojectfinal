@@ -19,5 +19,7 @@ public interface IProductDao extends JpaRepository<Product, Long> {
     nativeQuery = true)
 	public List<Product> findByCategoryId(long idCategory);
 
-
+    @Query(value = "SELECT * FROM product p WHERE p.name LIKE \'%?1%\' ",
+    nativeQuery = true)
+    public List<Product> findBySearch(String search);
 }

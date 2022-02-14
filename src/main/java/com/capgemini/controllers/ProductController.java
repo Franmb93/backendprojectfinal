@@ -113,5 +113,9 @@ public class ProductController {
 		return serviceProduct.findByCategoryId(id);
 	}
 
+	@GetMapping("/s/{search}")
+	public List<Product> findBySearch(@PathVariable(value = "search") String search){
+		return serviceProduct.findBySearch(search);
+	}
 
 }
