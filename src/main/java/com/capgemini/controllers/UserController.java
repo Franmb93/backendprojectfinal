@@ -98,4 +98,10 @@ public class UserController {
 				.body(entityModel);
 	}
 
+	@GetMapping("/pro/{id}")
+	public EntityModel<Usuario> getUserByProductId(@PathVariable("id") long id) {
+		Usuario user = service.findByProductId(id);
+
+		return assembler.toModel(user);
+	}
 }
