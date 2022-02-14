@@ -21,7 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 
 @Controller
-@CrossOrigin("http://localhost:8080")
+@CrossOrigin("http://localhost:8081")
 public class FileController {
     @Autowired
   private FileStorageService storageService;
